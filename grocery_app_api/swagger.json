@@ -1,0 +1,185 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Grocery App API",
+    "description": "Grocery App API -flutter/nodejs",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:5000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Category",
+      "description": "Category API"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/api/products": {
+      "get": {
+        "tags": ["Category"],
+        "summary": "Get all Category ",
+        "parameters": [
+          {
+            "name": "CategoryName",
+            "in": "query",
+            "required": false,
+            "description": "Category Name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Category"],
+        "summary": "Create Category API",
+        "parameters": [
+          {
+            "name": "CategoryName",
+            "in": "formData",
+            "description": "Category Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "CategoryDescription",
+            "in": "formData",
+            "description": "Category Description",
+            "type": "string"
+          },
+        
+          {
+            "name": "CategoryImage",
+            "in": "formData",
+            "description": "Category Image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Category Id",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Category"],
+        "summary": "Category Details based on Category Id",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["Category"],
+        "summary": "Update Category API",
+        "parameters": [
+          {
+            "name": "CategoryName",
+            "in": "formData",
+            "description": "Category Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "CategoryDescription",
+            "in": "formData",
+            "description": "Category Description",
+            "type": "string"
+          },
+         
+          {
+            "name": "CategoryImage",
+            "in": "formData",
+            "description": "Category Image",
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Category"],
+        "summary": "Delete Category API",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ServiceResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Product": {
+      "required": ["CategoryName", "_id"],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "CategoryName": {
+          "type": "string"
+        },
+        "CategoryDescription": {
+          "type": "string"
+        },
+        
+        "productImage": {
+          "type": "string"
+        }
+      }
+    },
+    "ServiceResponse": {
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Product"
+          }
+        }
+      }
+    }
+  }
+}
